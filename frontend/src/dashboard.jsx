@@ -15,7 +15,7 @@ function App() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/siswa')
+    fetch('/api/siswa')
       .then((response) => {
         if (!response.ok) {
           throw new Error('Gagal mengambil data siswa')

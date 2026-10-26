@@ -1,3 +1,11 @@
+:root {
+  --gold: #c08a3a;
+  --brown: #4b3028;
+  --green: #178755;
+  --cream: #f7f5f0;
+  --dark: #27332b;
+  --white: #ffffff;
+}
 
 * {
   box-sizing: border-box;
@@ -7,35 +15,44 @@
 
 body {
   font-family: Arial, sans-serif;
-  background: #f7f5f0;
-  color: #33251f;
+  background: var(--cream);
+  color: var(--dark);
 }
 
+/* ===== Navbar ===== */
 .navbar {
-  background: #4b3028;
-  color: white;
-  padding: 18px 6%;
+  background: var(--brown);
+  color: var(--white);
+  padding: 22px 6%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .navbar h1 {
-  font-size: 25px;
-  letter-spacing: 2px;
-  color: #ffffff
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: var(--white);
 }
 
 .navbar div {
   display: flex;
   align-items: center;
-  gap: 25px;
+  gap: 24px;
 }
 
-.navbar span {
-  font-weight: bold;
+.navbar a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 15px;
 }
 
+.navbar a:hover {
+  color: var(--gold);
+}
+
+/* ===== Base form elements ===== */
 button,
 input,
 select {
@@ -45,96 +62,288 @@ select {
 button {
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  padding: 9px 14px;
+  border-radius: 999px;
+  padding: 7px 18px;
+  font-size: 12px;
+  color: var(--white);
+  transition: opacity 0.15s;
 }
 
-.logout {
-  background: #d9b46b;
-  color: #33251f;
-  font-weight: bold;
+button:hover {
+  opacity: 0.85;
 }
 
+/* ===== Panel putih (isi dashboard) ===== */
 .dashboard {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 25px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px 40px 30px;
+  background: var(--white);
 }
 
 .dashboard h2 {
-  font-size: 24px;
-  margin-bottom: 25px;
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--dark);
+  margin-bottom: 16px;
 }
 
+/* ===== Filter ===== */
 .filter {
   display: flex;
-  gap: 15px;
-  margin-bottom: 30px;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 22px;
 }
 
 .filter input,
 .filter select {
-  padding: 12px;
-  border: 1px solid #d7cec5;
-  border-radius: 6px;
-  background: white;
+  padding: 7px 14px;
+  font-size: 12px;
+  color: var(--dark);
+  background: var(--white);
+  border: 1px solid var(--brown);
+  border-radius: 999px;
+  outline: none;
+}
+
+.filter input:focus,
+.filter select:focus {
+  border-color: var(--gold);
 }
 
 .filter input {
-  width: 65%;
+  flex: 1;
 }
 
 .filter select {
-  width: 35%;
+  flex: 1;
+  text-align: center;
 }
 
-.dashboard h3 {
-  margin-bottom: 15px;
+.filter button {
+  background: var(--gold);
+  color: var(--white);
 }
 
+/* ===== Tabel ===== */
 .table-container {
   overflow-x: auto;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 3px 12px #0000000d;
+  background: var(--white);
+  border: none;
+  border-radius: 0;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  text-align: left;
+  text-align: center;
 }
 
 th,
 td {
-  padding: 16px;
-  border-bottom: 1px solid #eee7df;
+  padding: 6px 10px;
+  font-size: 12px;
+  border: 1px solid var(--gold);
 }
 
 th {
-  background: #eadfce;
-  color: #4b3028;
+  background: var(--brown);
+  color: var(--white);
+  font-weight: bold;
+  padding: 10px;
+}
+
+td {
+  color: var(--dark);
+  height: 34px;
 }
 
 tbody tr:hover {
-  background: #faf7f2;
+  background: var(--cream);
 }
 
+/* ===== Kolom aksi ===== */
 .aksi {
   white-space: nowrap;
 }
 
 .detail {
-  background: #4b6b50;
-  color: white;
-  margin-right: 6px;
+  background: var(--gold);
+  color: var(--white);
+  margin-right: 8px;
 }
 
 .tambah {
-  background: #d9b46b;
-  color: #33251f;
+  background: var(--green);
+  color: var(--white);
 }
 
+/* ===== Halaman Detail Siswa ===== */
+.detail-page {
+  background: transparent;
+  max-width: 1100px;
+  padding: 20px 40px 40px;
+}
+
+.dashboard .detail-title {
+  text-align: center;
+  color: var(--gold);
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.detail-info {
+  background: var(--white);
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  padding: 14px 22px;
+  margin-bottom: 22px;
+  display: grid;
+  gap: 8px;
+}
+
+.detail-info p {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  font-size: 12px;
+  color: var(--dark);
+}
+
+.riwayat-section {
+  background: var(--brown);
+  border-radius: 14px;
+  padding: 14px 14px 16px;
+}
+
+.riwayat-section h3 {
+  color: var(--white);
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+
+.riwayat-section .table-container {
+  background: var(--white);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  min-height: 120px;
+  box-shadow: none;
+}
+
+.riwayat-section th,
+.riwayat-section td {
+  background: transparent;
+  color: var(--dark);
+  border: none;
+  font-size: 12px;
+  padding: 8px 10px;
+}
+
+.riwayat-section th {
+  font-weight: bold;
+  padding-top: 12px;
+}
+
+.riwayat-section tbody tr:hover {
+  background: var(--cream);
+}
+
+.hapus {
+  background: #f0453a;
+  color: var(--white);
+}
+
+.detail-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.detail-actions .detail {
+  margin-right: 0;
+}
+
+/* ===== Form Tambah Point ===== */
+.form-page {
+  background: transparent;
+  max-width: 1100px;
+  padding: 20px 40px 40px;
+}
+
+.dashboard .form-title {
+  text-align: center;
+  color: var(--gold);
+  font-size: 15px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  padding: 22px 20px 24px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label,
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--dark);
+  background: #ecdcc2;
+  border: none;
+  border-radius: 6px;
+  outline: none;
+  resize: vertical;
+}
+
+.form-input:focus {
+  box-shadow: 0 0 0 2px var(--gold);
+}
+
+.form-input[readonly] {
+  cursor: default;
+}
+
+.radio-group {
+  display: grid;
+  gap: 6px;
+}
+
+.form-group .radio-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: normal;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.radio-item input {
+  accent-color: var(--gold);
+}
+
+.form-card .detail-actions {
+  margin-top: 22px;
+}
+
+/* ===== Responsive ===== */
 @media (max-width: 600px) {
   .navbar {
     padding: 16px 20px;
@@ -145,25 +354,21 @@ tbody tr:hover {
   }
 
   .navbar div {
-    gap: 12px;
+    gap: 14px;
   }
 
   .dashboard {
-    margin: 25px auto;
-    padding: 0 15px;
+    padding: 16px 15px 24px;
   }
 
   .filter {
     flex-direction: column;
-  }
-
-  .filter input,
-  .filter select {
-    width: 100%;
+    align-items: stretch;
+    gap: 12px;
   }
 
   th,
   td {
-    padding: 12px;
+    padding: 8px;
   }
 }

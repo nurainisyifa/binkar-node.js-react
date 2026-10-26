@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import './App.css'
 
@@ -68,6 +67,37 @@ function DetailSiswa() {
     0
   )
 
+  
+async function handleHapus(id) {
+  const yakin = window.confirm(
+    'Yakin ingin menghapus riwayat pelanggaran ini?'
+  )
+
+  if (!yakin) return
+
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/riwayat-pelanggaran/${id}`,
+      {
+        method: 'DELETE',
+      }
+    )
+
+    if (!response.ok) {
+      throw new Error('Gagal menghapus riwayat pelanggaran.')
+    }
+
+    setRiwayat((dataSebelumnya) =>
+      dataSebelumnya.filter((item) => item.id !== id)
+    )
+
+    alert('Riwayat pelanggaran berhasil dihapus.')
+  } catch (err) {
+    alert(err.message)
+  }
+}
+
+
   if (loading) {
     return <p>Memuat detail siswa...</p>
   }
@@ -76,7 +106,10 @@ function DetailSiswa() {
     return (
       <main className="dashboard">
         <p>{error || 'Data siswa tidak ditemukan.'}</p>
-        <button onClick={() => window.location.href = '/'}>
+        <button
+          className="detail"
+          onClick={() => (window.location.href = '/')}
+        >
           Kembali
         </button>
       </main>
@@ -94,53 +127,21 @@ function DetailSiswa() {
       </nav>
 
       <main className="dashboard detail-page">
-        <h2 className="detail-title text-center">
-          {siswa.nama}
-        </h2>
+        <h2 className="detail-title">{siswa.nama}</h2>
 
-        <section
-          className="detail-info"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '20px'
-          }}
-        >
-          <div>
-            <p>
-              <strong>NIS SISWA:</strong> {siswa.nis}
-            </p>
-            <p>
-              <strong>NAMA SISWA:</strong> {siswa.nama}
-            </p>
-            <p>
-              <strong>KELAS SISWA:</strong> {siswa.kelas}
-            </p>
-          </div>
-
-          <table
-            border="3"
-            cellPadding="10"
-            style={{
-              width: '200px',
-              backgroundColor: '#d9b46b',
-              textAlign: 'center'
-            }}
-          >
-            <tbody>
-              <tr>
-                <td>
-                  <strong>TOTAL POIN PELANGGARAN</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>{totalPoin}</strong>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <section className="detail-info">
+          <p>
+            <strong>NIS</strong>
+            <span>: {siswa.nis}</span>
+          </p>
+          <p>
+            <strong>KELAS</strong>
+            <span>: {siswa.kelas}</span>
+          </p>
+          <p>
+            <strong>TOTAL POINT</strong>
+            <span>: {totalPoin}</span>
+          </p>
         </section>
 
         <section className="riwayat-section">
@@ -152,7 +153,7 @@ function DetailSiswa() {
                 <tr>
                   <th>TANGGAL</th>
                   <th>JENIS PELANGGARAN</th>
-                  <th>POIN</th>
+                  <th>POINT</th>
                   <th>KETERANGAN</th>
                   <th>AKSI</th>
                 </tr>
@@ -176,33 +177,38 @@ function DetailSiswa() {
                       <td>{item.jenis_pelanggaran}</td>
                       <td>{item.poin}</td>
                       <td>{item.keterangan || '-'}</td>
-                      <td>-</td>
+                      <td>
+                        {/* TODO: sambungkan ke fungsi hapus riwayat */}
+                        <button className="hapus" onClick={() => handleHapus(item.id)}>
+                          Hapus
+                        </button>
+                      </td>
                     </tr>
                   ))
                 )}
               </tbody>
             </table>
           </div>
+
+          <div className="detail-actions">
+            <button
+              className="detail"
+              onClick={() => (window.location.href = '/')}
+            >
+              Back
+            </button>
+
+            <button
+              className="tambah"
+              onClick={() => {
+                window.location.href =
+                  `/tambah?nis=${encodeURIComponent(siswa.nis)}`
+              }}
+            >
+              Tambah Point
+            </button>
+          </div>
         </section>
-
-        <div className="detail-actions">
-          <button
-            className="detail"
-            onClick={() => window.location.href = '/'}
-          >
-            ← BACK
-          </button>
-
-          <button
-            className="tambah"
-            onClick={() => {
-              window.location.href =
-                `/tambah?nis=${encodeURIComponent(siswa.nis)}`
-            }}
-          >
-            TAMBAH PELANGGARAN
-          </button>
-        </div>
       </main>
     </>
   )

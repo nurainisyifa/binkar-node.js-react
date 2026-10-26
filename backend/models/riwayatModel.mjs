@@ -50,3 +50,16 @@ export const getTotalPoinSemuaSiswa = async () => {
     const [rows] = await db.execute(sql);
     return rows;
 };
+
+
+export const hapusRiwayat = async (id) => {
+    const sql = `
+        DELETE FROM riwayat_pelanggaran
+        WHERE id = ?
+    `;
+
+    const [result] = await db.execute(sql, [id]);
+
+    return result;
+};
+

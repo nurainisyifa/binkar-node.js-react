@@ -1,12 +1,38 @@
-
 import {
     tambahPelanggaran as simpanPelanggaran,
-    getRiwayatPelanggaran as ambilRiwayatPelanggaran
+    getRiwayatPelanggaran as ambilRiwayatPelanggaran,
+    hapusRiwayat
 } from '../models/riwayatModel.mjs';
 
 import {
     getTotalPoinSemuaSiswa
 } from '../models/riwayatModel.mjs';
+
+
+export const hapusRiwayatController = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const result = await hapusRiwayat(id);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: 'Riwayat pelanggaran tidak ditemukan.'
+            });
+        }
+
+        return res.json({
+            message: 'Riwayat pelanggaran berhasil dihapus.'
+        });
+    } catch (error) {
+        console.error('Gagal menghapus riwayat:', error);
+
+        return res.status(500).json({
+            message: 'Gagal menghapus riwayat pelanggaran.'
+        });
+    }
+};
+
 
 const poinPelanggaran = {
     Ringan: 5,

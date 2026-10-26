@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from 'react'
 import './App.css'
 
@@ -42,20 +41,19 @@ function TambahPelanggaran() {
       .finally(() => setLoading(false))
   }, [nis])
 
-  
   async function handleSimpan(event) {
-    event.preventDefault();
+    event.preventDefault()
 
     if (!jenis || !tanggal) {
-      alert('Jenis pelanggaran dan tanggal wajib diisi.');
-      return;
+      alert('Jenis pelanggaran dan tanggal wajib diisi.')
+      return
     }
 
     const poinPerJenis = {
       ringan: 5,
       sedang: 10,
       berat: 15
-    };
+    }
 
     try {
       const response = await fetch(
@@ -73,40 +71,42 @@ function TambahPelanggaran() {
             keterangan
           })
         }
-      );
+      )
 
-      const data = await response.json();
+      const data = await response.json()
 
       if (!response.ok) {
         throw new Error(
           data.message || 'Gagal menyimpan pelanggaran.'
-        );
+        )
       }
 
-      alert('Pelanggaran berhasil disimpan.');
+      alert('Pelanggaran berhasil disimpan.')
 
       window.location.href =
-        `/detail?nis=${encodeURIComponent(siswa.nis)}`;
+        `/detail?nis=${encodeURIComponent(siswa.nis)}`
     } catch (err) {
-      alert(err.message || 'Terjadi kesalahan saat menyimpan.');
+      alert(err.message || 'Terjadi kesalahan saat menyimpan.')
     }
   }
 
   if (loading) {
-  return <p>Memuat data siswa...</p>;
-}
+    return <p>Memuat data siswa...</p>
+  }
 
-if (error || !siswa) {
-  return (
-    <main className="dashboard">
-      <p>{error || 'Data siswa tidak ditemukan.'}</p>
-      <button onClick={() => window.location.href = '/'}>
-        Kembali
-      </button>
-    </main>
-  );
-}
-
+  if (error || !siswa) {
+    return (
+      <main className="dashboard">
+        <p>{error || 'Data siswa tidak ditemukan.'}</p>
+        <button
+          className="detail"
+          onClick={() => (window.location.href = '/')}
+        >
+          Kembali
+        </button>
+      </main>
+    )
+  }
 
   return (
     <>
@@ -118,58 +118,83 @@ if (error || !siswa) {
         </div>
       </nav>
 
-      <main className="dashboard">
-  <h2>Tambah Pelanggaran</h2>
-  <form onSubmit={handleSimpan}>
-          <div className="detail-info" style={{ padding: '20px' }}>
-            <p>
-              <strong>NIS SISWA:</strong> {siswa.nis}
-            </p>
-            <p>
-              <strong>NAMA SISWA:</strong> {siswa.nama}
-            </p>
-            <p>
-              <strong>KELAS SISWA:</strong> {siswa.kelas}
-            </p>
+      <main className="dashboard form-page">
+        <h2 className="form-title">Form Tambah Point</h2>
+
+        <form className="form-card" onSubmit={handleSimpan}>
+          <div className="form-group">
+            <label htmlFor="nis">NIS SISWA</label>
+            <input
+              id="nis"
+              className="form-input"
+              type="text"
+              value={siswa.nis}
+              readOnly
+            />
           </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label htmlFor="jenis">Jenis Pelanggaran</label>
-            <select
-              id="jenis"
-              value={jenis}
-              onChange={(event) => setJenis(event.target.value)}
-              required
-              style={{ display: 'block', width: '100%', padding: '10px' }}
-            >
-              <option value="">Pilih jenis pelanggaran</option>
-              <option value="ringan">Ringan</option>
-              <option value="sedang">Sedang</option>
-              <option value="berat">Berat</option>
-            </select>
+          <div className="form-group">
+            <label htmlFor="nama">NAMA SISWA</label>
+            <input
+              id="nama"
+              className="form-input"
+              type="text"
+              value={siswa.nama}
+              readOnly
+            />
           </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label htmlFor="tanggal">Tanggal Pelanggaran</label>
+          <div className="form-group">
+            <label htmlFor="kelas">KELAS SISWA</label>
+            <input
+              id="kelas"
+              className="form-input"
+              type="text"
+              value={siswa.kelas}
+              readOnly
+            />
+          </div>
+
+          <div className="form-group">
+            <span className="form-label">JENIS PELANGGARAN</span>
+
+            <div className="radio-group">
+              {['ringan', 'sedang', 'berat'].map((item) => (
+                <label key={item} className="radio-item">
+                  <input
+                    type="radio"
+                    name="jenis"
+                    value={item}
+                    checked={jenis === item}
+                    onChange={(event) => setJenis(event.target.value)}
+                    required
+                  />
+                  {item.charAt(0).toUpperCase() + item.slice(1)}
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="tanggal">Tanggal</label>
             <input
               id="tanggal"
+              className="form-input"
               type="date"
               value={tanggal}
               onChange={(event) => setTanggal(event.target.value)}
               required
-              style={{ display: 'block', width: '100%', padding: '10px' }}
             />
           </div>
 
-          <div style={{ marginBottom: '16px' }}>
-            <label htmlFor="keterangan">Keterangan (Opsional)</label>
+          <div className="form-group">
+            <label htmlFor="keterangan">Keterangan</label>
             <textarea
               id="keterangan"
+              className="form-input"
               value={keterangan}
               onChange={(event) => setKeterangan(event.target.value)}
-              rows="4"
-              placeholder="Masukkan keterangan pelanggaran"
-              style={{ display: 'block', width: '100%', padding: '10px' }}
+              rows="2"
             />
           </div>
 
@@ -177,16 +202,19 @@ if (error || !siswa) {
             <button
               type="button"
               className="detail"
-              onClick={() => window.location.href = `/detail?nis=${encodeURIComponent(siswa.nis)}`}
+              onClick={() => {
+                window.location.href =
+                  `/detail?nis=${encodeURIComponent(siswa.nis)}`
+              }}
             >
-              ← Kembali
+              Back
             </button>
 
             <button type="submit" className="tambah">
-              Simpan Pelanggaran
+              Tambah Point
             </button>
           </div>
-          </form>
+        </form>
       </main>
     </>
   )

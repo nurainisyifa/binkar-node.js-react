@@ -25,7 +25,7 @@ function App() {
       })
       .then(async (data) => {
         const responsePoin = await fetch(
-          'http://localhost:5000/api/riwayat-pelanggaran/total'
+          '/api/riwayat-pelanggaran/total'
         )
 
         if (!responsePoin.ok) {

@@ -57,7 +57,7 @@ function TambahPelanggaran() {
 
     try {
       const response = await fetch(
-        'http://localhost:5000/api/riwayat-pelanggaran',
+        '/api/riwayat-pelanggaran',
         {
           method: 'POST',
           headers: {

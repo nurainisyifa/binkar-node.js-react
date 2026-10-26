@@ -21,7 +21,7 @@ function DetailSiswa() {
       try {
         // Mengambil data siswa
         const responseSiswa = await fetch(
-          'http://localhost:5000/api/siswa'
+          '/api/siswa'
         )
 
         if (!responseSiswa.ok) {
@@ -42,7 +42,7 @@ function DetailSiswa() {
 
         // Mengambil riwayat pelanggaran berdasarkan NIS
         const responseRiwayat = await fetch(
-          `http://localhost:5000/api/riwayat-pelanggaran/${encodeURIComponent(nis)}`
+          `/api/riwayat-pelanggaran/${encodeURIComponent(nis)}`
         )
 
         if (!responseRiwayat.ok) {
@@ -77,7 +77,7 @@ async function handleHapus(id) {
 
   try {
     const response = await fetch(
-      `http://localhost:5000/api/riwayat-pelanggaran/${id}`,
+      `/api/riwayat-pelanggaran/${id}`,
       {
         method: 'DELETE',
       }

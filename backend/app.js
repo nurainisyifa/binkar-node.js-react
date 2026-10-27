@@ -16,6 +16,6 @@ app.use('/api/siswa', siswaRoutes);
 app.use('/api/riwayat-pelanggaran', riwayatRoutes);
 
 app.listen(5000, () => {
-    console.log('Server berjalan di http://localhost:5000');
+    console.log('Server berjalan di http://72.62.120.77:5000');
 });
 
